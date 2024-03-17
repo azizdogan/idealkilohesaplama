@@ -1,0 +1,279 @@
+﻿Build1=IdealKiloHesaplama,com.idealKiloHesaplamaSystem
+File1=Layout.bal
+FileGroup1=Default Group
+Group=Default Group
+Library1=core
+Library2=xui
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'End of default text.~\n~
+Module1=Starter
+NumberOfFiles=1
+NumberOfLibraries=2
+NumberOfModules=1
+Version=10.7
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: İdeal Kilo Hesaplama
+	#VersionCode: 1
+	#VersionName: 1.1
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: True
+	#IncludeTitle: False
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Private xui As XUI
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	Private LabelidealKilo As Label
+	Private LabelYagsizAgirlik As Label
+	Private LabelVucutSuyu As Label
+	Private LabelVucutYuzeyAlani As Label
+	Private LabelVucutKitleEndeksi As Label
+	Private LabelKiloDurum As Label
+	Private EditTextBoy As EditText
+	Private RadioButtonErkek As RadioButton
+	Private RadioButtonKadin As RadioButton
+	Private ButtonHesapla As Button
+	Private EditTextKilo As EditText
+	Private EditTextYas As EditText
+	Dim Boy As Int
+	Dim a As Int
+	Dim b As Int
+	Dim c As Int
+	Dim d As Int
+	Dim e As Int
+'	Dim sifir As Int
+	Dim Kilo As Int
+	Dim Yas As Int
+	
+	
+	
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("Layout")
+	
+	
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Private Sub idealKiloAgirligiHesaplamaErkek
+'	Erkekler İçin: İdeal Kilo = 50 + 2,3 * (Boy(cm)/2,54) – 60)
+'	sifir = EditTextBoy.Text
+'	sifir = 0
+
+	Boy = EditTextBoy.Text
+		a = (2.3 * (((Boy / 2.54) - 60)) + 50)
+	LabelidealKilo.Text = a
+
+	
+	
+		
+End Sub
+
+Private Sub idealKiloAgirligiHesaplamaKadin
+'	Kadınlar İçin: İdeal Kilo = 45,5 + 2,3 * (Boy(cm)/2,54) – 60)
+'	sifir = EditTextBoy.Text
+'	sifir = 0
+	
+	Boy = EditTextBoy.Text
+	a = (2.3 * ((Boy /2.54)-60)) + 45.5
+			LabelidealKilo.Text = a
+			
+End Sub
+
+Private Sub yagsizVucutAgirligiHesaplamaErkek
+'	Erkekler İçin: Yağsız Vücut Ağırlığı = 1,1 x kilo(kg) – 128 x (kilo / boy(cm))^2
+'	sifir = EditTextKilo.Text
+''	sifir = 0
+	Kilo = EditTextKilo.Text
+	b = (1.1*Kilo) - ((Kilo/Boy)*(Kilo/Boy)) * 128
+	LabelYagsizAgirlik.Text = b
+	
+End Sub
+
+Private Sub yagsizVucutAgirligiHesaplamaKadin
+'	Kadınlar İçin: Yağsız Vücut Ağırlığı = 1,07 x kilo(kg) – 148 x (kilo / Boy(cm))^2
+'	sifir = EditTextKilo.Text
+'	sifir = 0
+	Kilo = EditTextKilo.Text
+	b = (1.07*Kilo) - ((Kilo/Boy)*(Kilo/Boy)) * 148
+	LabelYagsizAgirlik.Text = b
+End Sub
+
+Private Sub toplamVucutSuyuHesaplamaErkek
+'	Erkekler İçin: Toplam Vücut Suyu = 2,447 + 0,3362 x kilo(kg) + 0,1074 x boy(cm) – 0,09156 x yaş
+	
+	Kilo = EditTextKilo.Text
+	Boy = EditTextBoy.Text
+	Yas = EditTextYas.Text
+	c = (2.447+(0.3362*Kilo)+ (0.1074*Boy)) - (0.09156*Yas)
+	LabelVucutSuyu.Text = c
+	
+End Sub
+
+Private Sub toplamVucutSuyuHesaplamaKadin
+'	Kadınlar İçin: Toplam Vücut Suyu = -2,097 + 0,2466 x kilo(kg) + 0,1069 x boy(cm)
+	
+	Kilo = EditTextKilo.Text
+	Boy = EditTextBoy.Text
+	Yas = EditTextYas.Text
+	c = (2.097+(0.2466*Kilo)+ (0.1069*Boy))
+	LabelVucutSuyu.Text = c
+	
+End Sub
+
+Private Sub vucutYuzeyAlaniHesaplamaErkek
+'	Mosteller Metodu : (Boy x Agırlık / 3600)^½
+	Kilo = EditTextKilo.Text
+	Boy = EditTextBoy.Text
+	d = ((Boy*Kilo)/3600) * 0.5
+	LabelVucutYuzeyAlani.Text = d
+End Sub
+
+Private Sub vucutYuzeyAlaniHesaplamaKadin
+	'	Mosteller Metodu : (Boy x Agırlık / 3600)^½
+	Kilo = EditTextKilo.Text
+	Boy = EditTextBoy.Text
+	d = ((Boy*Kilo)/3600) * 0.5
+	LabelVucutYuzeyAlani.Text = d
+End Sub
+
+Private Sub vucutKitleEndeksiHesaplamaErkek
+'	Vücut Kitle Endeksi = kilo(kg) / ((boy(cm)/100)^2)
+	Kilo = EditTextKilo.Text
+	Boy = EditTextBoy.Text
+	e = Kilo/ ((Boy/100)*(Boy/100))
+	LabelVucutKitleEndeksi.Text = e
+End Sub
+
+Private Sub vucutKitleEndeksiHesaplamaKadin
+'	Vücut Kitle Endeksi = kilo(kg) / ((boy(cm)/100)^2)
+	Kilo = EditTextKilo.Text
+	Boy = EditTextBoy.Text
+	e = Kilo/ ((Boy/100)*(Boy/100))
+	LabelVucutKitleEndeksi.Text = e
+	
+End Sub
+
+Private Sub kiloDurumBildirimi
+'	18, 5 kg/m.'nin altında olanlar: Zayıf
+'	18.5 – 24, 9 kg/m. arasında olanlar: Normal kilolu
+'	25 – 29, 9 kg/m. arasında olanlar: Fazla kilolu
+'	30 – 39, 9 kg/m. arasında olanlar: Obez
+'	40 kg/m.'nin üzerinde olanlar: İleri derecede obez (morbid obez), olarak görülür.
+
+	If e <= 18.5 Then
+
+		LabelKiloDurum.Text = "Zayıf"
+
+	Else If e >= 18.5 And e <= 24.9 Then
+
+		LabelKiloDurum.Text = "Normal"
+		
+	Else If e >= 25 And e <= 29.9 Then
+
+		LabelKiloDurum.Text = "Fazla Kilolu"
+
+	Else If e >= 30 And e <= 39.9 Then
+
+		LabelKiloDurum.Text = "Obez"
+		
+	Else If e >= 40 Then 
+
+		LabelKiloDurum.Text = "İleri Derecede Obez"
+
+	End If
+	
+End Sub
+
+Private Sub ButtonHesapla_Click
+	
+	Try
+		If RadioButtonErkek.Checked = True Then
+		idealKiloAgirligiHesaplamaErkek
+		yagsizVucutAgirligiHesaplamaErkek
+		toplamVucutSuyuHesaplamaErkek
+		vucutYuzeyAlaniHesaplamaErkek
+		vucutKitleEndeksiHesaplamaErkek
+		kiloDurumBildirimi
+		boyUyarisi
+		kiloUyarisi
+		yasUyarisi
+	
+	
+		Else If RadioButtonKadin.Checked = True Then
+		idealKiloAgirligiHesaplamaKadin
+		yagsizVucutAgirligiHesaplamaKadin
+		toplamVucutSuyuHesaplamaKadin
+		vucutYuzeyAlaniHesaplamaKadin
+		vucutKitleEndeksiHesaplamaKadin
+		kiloDurumBildirimi
+		boyUyarisi
+		kiloUyarisi
+		yasUyarisi
+	
+		Else
+				If RadioButtonErkek.Checked = False And RadioButtonKadin.Checked = False Then
+					MsgboxAsync ("Erkek veya Kadın Seçiniz.", "Uyarı!")
+				End If
+		End If
+	Catch
+				MsgboxAsync("Kutucukları Boş Bırakmayınız.","Uyarı!")
+	End Try
+
+End Sub
+
+Private Sub RadioButtonErkek_CheckedChange(Checked As Boolean)
+	RadioButtonErkek.Checked = True
+End Sub
+
+Private Sub RadioButtonKadin_CheckedChange(Checked As Boolean)
+	RadioButtonKadin.Checked = True
+End Sub
+
+
+Private Sub boyUyarisi
+	
+	If 140 <= EditTextBoy.Text And 210 >= EditTextBoy.Text Then
+		EditTextKilo.Text = EditTextKilo.Text
+	Else
+		MsgboxAsync("Lütfen 140cm ile 210cm arasında bir değer giriniz.","Uyarı!")
+	End If
+End Sub
+Private Sub kiloUyarisi
+	
+	If 30 <= EditTextKilo.Text And 200 >= EditTextKilo.Text Then
+		EditTextKilo.Text = EditTextKilo.Text
+		
+	Else
+		MsgboxAsync("Lütfen 30kg ile 200kg arasında bir değer giriniz.","Uyarı!")
+	End If
+		
+End Sub
+Private Sub yasUyarisi
+	
+	If 18 <= EditTextYas.Text And 70 >= EditTextYas.Text Then
+		EditTextYas.Text = EditTextYas.Text
+		
+	Else
+		MsgboxAsync("Lütfen 18 yaş ve 70 yaş arasında bir değer giriniz.","Uyarı!")
+	End If
+	
+End Sub
